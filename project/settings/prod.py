@@ -3,10 +3,10 @@ import dj_database_url
 from .base import *  # noqa
 
 
-SECRET_KEY = os.environ['DJ_SECRET_KEY']
+SECRET_KEY = SECRET_KEY
 
 
-DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE_URL = DATABASE_URL
 
 DATABASES = {
     'default': dj_database_url.config(

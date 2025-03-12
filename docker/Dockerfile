@@ -1,8 +1,10 @@
-FROM python:3
-
-RUN pip install --upgrade pip
+FROM python:3.11-slim-buster
 
 WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE 1
+
+RUN pip install --upgrade pip
 
 COPY requirements.dev.txt .
 
