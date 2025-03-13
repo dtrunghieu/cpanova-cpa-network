@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
+    image: cpa-network/ver-1
     volumes:
       - .:/app
     ports:
