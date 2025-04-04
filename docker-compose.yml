@@ -1,7 +1,8 @@
 
+# to run the project in debug mode docker-compose -f docker-compose.yml up --build
 services:
 
-  web:
+  web: #docker-compose up web
     build:
       context: .
       dockerfile: ./docker/Dockerfile
@@ -15,7 +16,37 @@ services:
     depends_on:
       - postgres
       - redis
-
+  
+  web_debug: #docker-compose up web_debug
+    build:
+    context: .
+    dockerfile: ./docker/Dockerfile-debug
+    command: >
+      sh -c "python -Xfrozen_modules=off -m debugpy --listen 0.0.0.0:5678 --wait-for-client manage.py runserver 0.0.0.0:80"
+    image: cpa-network/ver-1
+    volumes:
+      - .:/app
+    ports:
+      - 8000:80
+      - 5678:5678 # debug port
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    postgres:
+      image: "postgres:15"
+      environment:
+        - POSTGRES_DB=postgres
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+      ports:
+        - "5432:5432"
+    redis:
+      image: redis:alpine
+      ports:
+        - "6379:6379"
+  
   postgres:
     image: "postgres:15"
     environment:

@@ -24,3 +24,4 @@ django-stubs
 djangorestframework-stubs
 webargs
 pytz
+debugpy==1.6.7
